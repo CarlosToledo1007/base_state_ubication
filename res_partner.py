@@ -27,14 +27,14 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from odoo import models, fields, api
 
 
 class res_partner(models.Model):
 
     _inherit = 'res.partner'
 
-    state_id = fields.Many2one("res.country.state", 'Ubication', domain="[('country_id','=',country_id),('type','=','normal')]")
+    state_id = fields.Many2one("res.country.state", string='Ubication', domain="[('country_id','=',country_id),('type','=','normal')]")
 
     @api.model
     def _get_default_country(self):
@@ -42,11 +42,11 @@ class res_partner(models.Model):
 
 
     _defaults ={
-        'country_id' : lambda self, cr, uid, c: self.pool.get('res.partner')._get_default_country(cr, uid, context=c)
+        'country_id' : lambda self, cr, uid, c: self.env['res.partner']._get_default_country()
     }
 
 class res_company(models.Model):
 
     _inherit = 'res.company'
 
-    state_id = fields.Many2one("res.country.state", 'Ubication', domain="[('country_id','=',country_id),('type','=','normal')]")
+    state_id = fields.Many2one("res.country.state", string='Ubication', domain="[('country_id','=',country_id),('type','=','normal')]")
